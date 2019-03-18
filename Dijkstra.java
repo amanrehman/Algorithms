@@ -1,3 +1,9 @@
+/*Although this algorithm is meant for directed graph,
+  By adding two edges for each undirected edge,
+  we can make this algorithm work even for
+  an undirected graph
+
+*/
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -97,7 +103,7 @@ class Graph{
         //add source to min heap/priority queue
         minHeap.add(new Vertex(source,distance[source]));
         //while set S doesn't contain all the vertices in the graph
-        while(S.size()!=no_V){
+        while(minHeap.size()!=0){
            // System.out.println("Iteration ");
             int u=minHeap.remove().vertex;     //removing the node with minimum distance
             S.add(u);
@@ -110,9 +116,10 @@ class Graph{
                     //if distance of v can be decreased
                     if(distance[v]>(distance[u]+adjList.get(u).get(i).weight)){
                         distance[v]=distance[u]+adjList.get(u).get(i).weight;
+                        //add v to minheap/priority queue
+                        minHeap.add(new Vertex(v,distance[v]));
                     }
-                    //add v to minheap/priority queue
-                    minHeap.add(new Vertex(v,distance[v]));
+
                 }
 
             }
